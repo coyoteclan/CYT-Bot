@@ -10,7 +10,7 @@ Our tool for some cod server related tasks
 - Unban a player from discord
 
 ## Requirements
-- Python 3.8 or later
+- Python 3.8.10 or later
 - Modules:
 discord
 asyncio
@@ -25,3 +25,5 @@ paramiko (for sftp version)
 Run bot.py with C:/Windows/py.exe
 - For Linux:
 Type `cd <bot directory>` and then `python3 bot.py` in terminal
+
+For further help, feel free to contact on <a Download href=discord.com /a>
