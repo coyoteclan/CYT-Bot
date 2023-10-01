@@ -8,6 +8,11 @@ Our tool for some cod server related tasks
 - Get Server status
 - Ban a player from discord
 - Unban a player from discord
+- Added the function to remove color tags from player name
+- Bot now watches the reports file for new reports
+
+## Changes
+- Organized the code
 
 ## Requirements
 - Python 3.8.10 or later
