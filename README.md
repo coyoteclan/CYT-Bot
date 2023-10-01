@@ -16,11 +16,11 @@ Our tool for some cod server related tasks
 
 ## Requirements
 - Python 3.8.10 or later
-- Modules:
-discord
-asyncio
-requests
-paramiko (for sftp version)
+- **Modules:
+- discord
+- asyncio
+- requests
+- paramiko (for sftp version)
 ## Usage
 - Use local version if server is on local machine.
 - Use sftp verion if you use sftp to access server files
