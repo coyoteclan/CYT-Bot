@@ -121,8 +121,7 @@ async def banlist(ctx):
     try:
         with open('miscmod_bans.dat', 'r') as ban_file:
             lines = ban_file.readlines()
-            bans = [line.strip().split('%')[2] for line in lines]
-            ban_list = '\n'.join(bans)
+            ban_list = '\n'.join([remove_color_code(line.strip().split('%')[2]) for line in lines])
             await ctx.reply(f'__**Banned Players:**__`\n{ban_list}`')
     except FileNotFoundError:
         await ctx.reply('`The ban list file was not found.`')
