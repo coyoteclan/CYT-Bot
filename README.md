@@ -16,7 +16,7 @@ Our tool for some cod server related tasks
 
 ## Requirements
 - Python 3.8.10 or later
-- **Modules:
+- ### Modules:
 - discord
 - asyncio
 - requests
