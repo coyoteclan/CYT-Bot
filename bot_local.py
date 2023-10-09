@@ -7,12 +7,47 @@ import os
 import requests
 import re
 
-# Replace with your admin role. In this way: <@&"role id">
+# Replace with your admin role. In this way: <@&"role id"> *without the quotes
 adminrole = '<@&1131572747076632687>'
+
 #Ban file path including filename
 ban_file_path = 'F:/bot/miscmod_bans.dat'
+
 #Reports file path including filename
 report_file_path = 'F:/bot/miscmod_reports.dat'
+
+# Specify Guild and Channel ID
+guild_channel_ids = [
+    {'guild_id': '1131571343930951444', 'channel_id': '1150065592456458311'},
+]
+
+# Define server configurations with IP and port
+server_configs = {
+    "sd": {"ip": "65.109.65.23", "port": "11570"},
+    "dm": {"ip": "65.109.65.23", "port": "8770"},  #Add more servers as needed
+}
+
+# Define map image URLs
+map_images = {
+    "zh_king": "https://raw.githubusercontent.com/Kazam3766/mapimages/main/zh_king.png",
+    "mp_harbor": "https://cod.pm/mp_maps/stock/mp_harbor.png",
+    "mp_carentan": "https://cod.pm/mp_maps/stock/mp_carentan.png",
+    "mp_brecourt": "https://cod.pm/mp_maps/stock/mp_brecourt.png",
+    "mp_rocket": "https://cod.pm/mp_maps/stock/mp_rocket.png",
+    "mp_depot": "https://cod.pm/mp_maps/stock/mp_depot.png",
+    "mp_railyard": "https://cod.pm/mp_maps/stock/mp_railyard.png",
+    "training_outside": "https://raw.githubusercontent.com/Kazam3766/mapimages/main/training_outside.png",
+    "mp_stalingrad": "https://cod.pm/mp_maps/stock/mp_stalingrad.png",
+    "mp_dawnville": "https://cod.pm/mp_maps/stock/mp_dawnville.png",
+    "mp_tigertown": "https://cod.pm/mp_maps/stock/mp_tigertown.png",
+    "mp_bocage": "https://cod.pm/mp_maps/stock/mp_bocage.png",
+    
+    # Add more map-image pairs as needed
+}
+
+# Define the image for unknown maps
+unknown_map = "https://cod.pm/mp_maps/stock/unknown.png"
+
 def read_last_line_count():
     try:
         with open('last_line_count.dat', 'r') as file:
@@ -33,7 +68,7 @@ def remove_color_code(player_name):
 
     return player_name
 
-@tasks.loop(seconds=10)  # Adjust the interval as needed (e.g., every 10 seconds)
+@tasks.loop(seconds=10)  # Adjust the interval as needed (e.g. every 10 seconds)
 async def check_report_file(guild_id, channel_id):
     global last_line_count
 
@@ -65,51 +100,14 @@ async def check_report_file(guild_id, channel_id):
     except Exception as e:
         print(f'Error processing reports for guild {guild_id}, channel {channel_id}: {e}')
 
-# Specify Guild and Channel ID
-guild_channel_ids = [
-    {'guild_id': '1131571343930951444', 'channel_id': '1150065592456458311'},
-]
-
 intents = discord.Intents.default()
 intents.message_content = True  # Enable the message content intent
 bot = commands.Bot(command_prefix='+', activity=discord.Activity(type=discord.ActivityType.listening, name='+help'), intents=intents)
 
-# Define server configurations with IP and port
-server_configs = {
-    "sd": {"ip": "65.109.65.23", "port": "11570"},
-    "dm": {"ip": "65.109.65.23", "port": "8770"},  # Example: Add more servers as needed
-    "tdm": {"ip": "65.109.65.23", "port": "11043"},
-    "ftag": {"ip": "65.109.65.23", "port": "7914"},
-    "zom": {"ip": "65.109.65.23", "port": "5567"},
-	"rocks": {"ip": "78.46.65.243", "port": "6420"},
-
-}
-
-# Define map image URLs
-map_images = {
-    "zh_king": "https://raw.githubusercontent.com/Kazam3766/mapimages/main/zh_king.png",
-    "mp_harbor": "https://cod.pm/mp_maps/stock/mp_harbor.png",
-    "mp_carentan": "https://cod.pm/mp_maps/stock/mp_carentan.png",
-    "mp_brecourt": "https://cod.pm/mp_maps/stock/mp_brecourt.png",
-    "mp_rocket": "https://cod.pm/mp_maps/stock/mp_rocket.png",
-    "mp_depot": "https://cod.pm/mp_maps/stock/mp_depot.png",
-    "mp_railyard": "https://cod.pm/mp_maps/stock/mp_railyard.png",
-    "training_outside": "https://raw.githubusercontent.com/Kazam3766/mapimages/main/training_outside.png",
-    "mp_stalingrad": "https://cod.pm/mp_maps/stock/mp_stalingrad.png",
-    "mp_dawnville": "https://cod.pm/mp_maps/stock/mp_dawnville.png",
-    "mp_tigertown": "https://cod.pm/mp_maps/stock/mp_tigertown.png",
-    "mp_bocage": "https://cod.pm/mp_maps/stock/mp_bocage.png",
-    
-    # Add more map-image pairs as needed
-}
-
-# Define the image for unknown maps
-unknown_map = "https://cod.pm/mp_maps/stock/unknown.png"
-
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
-    # Start the background tasks for each guild and channel
+    # Start the task for watching reports
     for entry in guild_channel_ids:
         check_report_file.start(int(entry['guild_id']), int(entry['channel_id']))
 
@@ -241,7 +239,7 @@ async def report_details(ctx, player_name: str):
         await ctx.reply('`The report list file was not found.`')
 
 
-# Helper function to convert time to seconds
+#Function to convert time to seconds
 def convert_to_seconds(time):
     unit = time[-1]
     value = int(time[:-1])
@@ -272,15 +270,15 @@ async def add_ban(ctx, ip, name, reason, ban_time):
         ban_time_seconds = convert_to_seconds(ban_time)
 
         # Read the current contents of the remote file as bytes
-        with open(ban_file_path, 'rb') as remote_file:
-            existing_content = remote_file.read()
+        with open(ban_file_path, 'rb') as file:
+            existing_content = file.read()
 
         # Append the new line to the existing content
         ban_line = f"1.1.1.1%{admin}%{name}%{ban_time_seconds}%167548%{reason}\n"
         updated_content = existing_content + ban_line.encode('utf-8')
 
         # Write the updated content back to the remote file
-        with open(ban_file_path, 'wb') as remote_file:
+        with open(ban_file_path, 'wb') as file:
             remote_file.write(updated_content)
 
 
@@ -290,8 +288,6 @@ async def add_ban(ctx, ip, name, reason, ban_time):
     except Exception as e:
         await ctx.reply("An error occurred while adding the ban.")
         print(f'Error adding ban: {e}')
-
-
 
 @bot.command(description="Unban a Player.")
 @commands.cooldown(1, 10, commands.BucketType.user)
