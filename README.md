@@ -24,7 +24,7 @@ Our tool for some cod server related tasks
 ## Usage
 - Use local version if server is on local machine.
 - Use sftp verion if you use sftp to access server files
-- Put valid path of ban and reports file
+- Fill up the required fields
 - Add your bot's token in the last line
 - For Windows:
 Run bot.py with C:/Windows/py.exe
