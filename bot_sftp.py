@@ -1,4 +1,4 @@
-# Bot made for CoYoTe' Clan*
+# Bot made by CoYoTe' Clan*
 
 import discord
 from discord.ext import commands, tasks
