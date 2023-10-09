@@ -144,7 +144,7 @@ async def ban_details(ctx, player_name: str):
                         time_description = f"{time_in_hours} hours"                    
                     matches.append(values)
             if matches:
-                details_str = "\n\n".join([f'`Player Name:` {values[2]}\n`Banned IP:` {values[0]}\n`Reason:` {values[5]}\n`Admin:` {values[1]}\n`Time: `{time_description}' for values in matches])
+                details_str = "\n\n".join([f'`Player Name:` {remove_color_code(values[2])}\n`Banned IP:` {values[0]}\n`Reason:` {values[5]}\n`Admin:` {remove_color_code(values[1])}\n`Time: `{time_description}' for values in matches])
                 await ctx.reply(f'__**Match(es) found:**__\n{details_str}')
             else:
                 await ctx.reply('`No matching players found in the ban list.`')
@@ -163,7 +163,7 @@ async def reports(ctx):
         with open('miscmod_reports.dat', 'r') as report_file:
             lines = report_file.readlines()
             reports = [line.strip().split('%') for line in lines]
-            reported_players = [report[2] for report in reports]
+            reported_players = [remove_color_code(report[2]) for report in reports]
             reported_players_str = '\n'.join(reported_players)
             await ctx.reply(f'__**Reported Players:**__\n`{reported_players_str}`')
     except FileNotFoundError:
@@ -181,7 +181,7 @@ async def report_details(ctx, player_name: str):
                 if player_name.lower() in values[2].lower():
                     matches.append(values)
             if matches:
-                details_str = "\n\n".join([f'`Reporter:` {values[0]}\n`Reporter IP:` {values[1]}\n`Reported Player:` {values[2]}\n`Reported Player IP:` {values[3]}\n`Reason:` {values[4]}\n' for values in matches])
+                details_str = "\n\n".join([f'`Reporter:` {remove_color_code(values[0])}\n`Reporter IP:` {values[1]}\n`Reported Player:` {remove_color_code(values[2])}\n`Reported Player IP:` {values[3]}\n`Reason:` {values[4]}\n' for values in matches])
                 await ctx.reply(f'__**Match(es) found:**__\n{details_str}')
             else:
                 await ctx.reply('`No matching reports found.`')
