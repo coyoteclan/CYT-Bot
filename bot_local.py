@@ -256,6 +256,7 @@ def convert_to_seconds(time):
         return 0  # Permanent ban
 
 @bot.command()
+@commands.has_permissions(manage_guild=True)
 async def add_ban(ctx, ip, name, reason, ban_time):
     try:
         # Get admin (Discord username)
