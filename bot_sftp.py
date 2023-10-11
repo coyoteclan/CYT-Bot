@@ -102,7 +102,7 @@ async def status(ctx, server_type):
 
             if player_info:
                 # Remove '^' and numbers 0-7 from player names
-                cleaned_player_names = [remove_color_codes(player['name']) for player in player_info]
+                cleaned_player_names = [remove_color_code(player['name']) for player in player_info]
                 player_list = "\n".join([f"**{cleaned_name}** - Score: {player['score']}, Ping: {player['ping']}" for cleaned_name, player in zip(cleaned_player_names, player_info)])
                 embed.add_field(name="Players Online", value=player_list, inline=False)
 
@@ -286,6 +286,7 @@ def convert_to_seconds(time):
         return 0  # Permanent ban
 
 @bot.command()
+@commands.has_permissions(manage_guild=True)
 async def add_ban(ctx, ip, name, reason, ban_time):
     try:
         # Get admin (Discord username)
