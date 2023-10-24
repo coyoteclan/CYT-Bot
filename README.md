@@ -31,4 +31,4 @@ Run bot.py with C:/Windows/py.exe
 - For Linux:
 Type `cd <bot directory>` and then `python3 bot.py` in terminal
 
-For further help, feel free to contact on <a href="https://discord.gg/TU4csDGG3r">Discord</a>
+For further help, feel free to contact on <a href="https://discord.com/users/1166184626264494160">Discord</a>
