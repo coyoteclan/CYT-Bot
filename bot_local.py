@@ -61,6 +61,8 @@ def save_last_line_count(count):
     with open('last_line_count.dat', 'w') as file:
         file.write(str(count))
 
+report_line_count = read_last_line_count()
+
 def read_ban_line_count():
     try:
         with open('ban_line_count.dat', 'r') as file:
