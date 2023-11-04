@@ -136,7 +136,7 @@ async def check_ban_file(guild_id, channel_id):
                 if guild:
                     channel = guild.get_channel(int(channel_id))
                     if channel:
-                        await channel.send(f'{adminrole}\n__**New Report:**__\n{details_str}')
+                        await channel.send(f'__**New Ban:**__\n{details_str}')
                     else:
                         print(f'Channel not found in guild {guild_id}: {channel_id}')
                 else:
