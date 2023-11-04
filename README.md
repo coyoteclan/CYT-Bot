@@ -10,6 +10,7 @@ Our tool for some cod server related tasks
 - Unban a player from discord
 - Added the function to remove color tags from player name
 - Bot now watches the reports file for new reports (Local version)
+- Added Banlog (Local Version)
 
 ## Changes
 - Organized the code
