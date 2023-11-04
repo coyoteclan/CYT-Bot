@@ -329,7 +329,7 @@ async def add_ban(ctx, ip, name, reason, ban_time):
 
         # Write the updated content back to the remote file
         with open(ban_file_path, 'wb') as file:
-            remote_file.write(updated_content)
+            file.write(updated_content)
 
 
         await ctx.reply(f"Banned: {name} ({ip}) For {ban_time} - Reason: {reason}")
