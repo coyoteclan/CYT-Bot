@@ -16,7 +16,7 @@ Our tool for some cod server related tasks
 - Organized the code
 
 ## Requirements
-- Python 3.8.10 or later
+- Python 3.8.10 or later would be good but python 3.7 also works
 - ### Modules:
 - discord
 - asyncio
