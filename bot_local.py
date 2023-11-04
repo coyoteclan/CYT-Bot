@@ -128,10 +128,10 @@ async def check_ban_file(guild_id, channel_id):
 
         # Check if there are new lines (reports)
         if current_ban_line_count > ban_line_count:
-            new_reports = lines[ban_line_count:]
-            for line in new_reports:
+            new_bans = lines[ban_line_count:]
+            for line in new_bans:
                 values = line.strip().split('%')
-                details_str = f'`Reporter:` {remove_color_code(values[0])}\n`Reporter IP:` {values[1]}\n`Reported Player:`{remove_color_code(values[2])}\n`Reported Player IP:` {values[3]}\n`Reason:` {values[4]}\n'
+                details_str = f'`Admin:` {remove_color_code(values[0])}\n`Banneed Player:`{remove_color_code(values[2])}\n`Banneded Player IP:` {values[0]}\n`Reason:` {values[5]}\n'
                 guild = bot.get_guild(int(guild_id))
                 if guild:
                     channel = guild.get_channel(int(channel_id))
