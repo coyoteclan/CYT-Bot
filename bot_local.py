@@ -241,7 +241,7 @@ async def ban_details(ctx, player_name: str):
                         time_description = f"{time_in_hours} hours"                    
                     matches.append(values)
             if matches:
-                details_str = "\n\n".join([f'`Player Name:` {remove_color_code(values[2])}\n`Banned IP:` {values[0]}\n`Reason:` {values[5]}\n`Admin:` {values[1]}\n`Time: `{time_description}' for values in matches])
+                details_str = "\n\n".join([f'`Player Name:` {remove_color_code(values[2])}\n`Banned IP:` {values[0]}\n`Reason:` {values[5]}\n`Admin:` {remove_color_code(values[1])}\n`Time: `{time_description}' for values in matches])
                 await ctx.reply(f'__**Match(es) found:**__\n{details_str}')
             else:
                 await ctx.reply('`No matching players found in the ban list.`')
