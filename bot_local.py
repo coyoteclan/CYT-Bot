@@ -60,7 +60,21 @@ def read_last_line_count():
 def save_last_line_count(count):
     with open('last_line_count.dat', 'w') as file:
         file.write(str(count))
-last_line_count = read_last_line_count()
+
+def read_ban_line_count():
+    try:
+        with open('ban_line_count.dat', 'r') as file:
+            return int(file.read().strip())
+    except FileNotFoundError:
+        # Create the file if it doesn't exist and initialize with 0
+        with open('ban_line_count.dat', 'w') as file:
+            file.write('0')
+        return 0  # Return 0 since the file was just created
+def save_ban_line_count(count):
+    with open('ban_line_count.dat', 'w') as file:
+        file.write(str(count))
+
+ban_line_count = read_ban_line_count()
 
 def remove_color_code(player_name):
     # Replace double '^' with a special character temporarily
@@ -100,6 +114,38 @@ async def check_report_file(guild_id, channel_id):
     except Exception as e:
         print(f'Error processing reports for guild {guild_id}, channel {channel_id}: {e}')
 
+@tasks.loop(seconds=10)  # Adjust the interval as needed (e.g. every 10 seconds)
+async def check_ban_file(guild_id, channel_id):
+    global ban_line_count
+
+    try:
+        # Read the current line count in the report file
+        with open(ban_file_path, 'r') as ban_file:
+            lines = ban_file.readlines()
+            current_ban_line_count = len(lines)
+
+        # Check if there are new lines (reports)
+        if current_ban_line_count > ban_line_count:
+            new_reports = lines[ban_line_count:]
+            for line in new_reports:
+                values = line.strip().split('%')
+                details_str = f'`Reporter:` {remove_color_code(values[0])}\n`Reporter IP:` {values[1]}\n`Reported Player:`{remove_color_code(values[2])}\n`Reported Player IP:` {values[3]}\n`Reason:` {values[4]}\n'
+                guild = bot.get_guild(int(guild_id))
+                if guild:
+                    channel = guild.get_channel(int(channel_id))
+                    if channel:
+                        await channel.send(f'{adminrole}\n__**New Report:**__\n{details_str}')
+                    else:
+                        print(f'Channel not found in guild {guild_id}: {channel_id}')
+                else:
+                    print(f'Guild not found: {guild_id}')
+
+            ban_line_count = current_ban_line_count
+            # Save the last processed line count to the file
+            save_ban_line_count(current_ban_line_count)
+    except Exception as e:
+        print(f'Error processing bans for guild {guild_id}, channel {channel_id}: {e}')
+
 intents = discord.Intents.default()
 intents.message_content = True  # Enable the message content intent
 bot = commands.Bot(command_prefix='+', activity=discord.Activity(type=discord.ActivityType.listening, name='+help'), intents=intents)
@@ -110,6 +156,7 @@ async def on_ready():
     # Start the task for watching reports
     for entry in guild_channel_ids:
         check_report_file.start(int(entry['guild_id']), int(entry['channel_id']))
+        check_ban_file.start(int(entry['guild_id']), int(entry['channel_id']))
 
 @bot.command()
 async def status(ctx, server_type):
