@@ -84,7 +84,7 @@ def remove_color_code(player_name):
 
 @tasks.loop(seconds=10)  # Adjust the interval as needed (e.g. every 10 seconds)
 async def check_report_file(guild_id, channel_id):
-    global last_line_count
+    global report_line_count
 
     try:
         # Read the current line count in the report file
@@ -93,8 +93,8 @@ async def check_report_file(guild_id, channel_id):
             current_line_count = len(lines)
 
         # Check if there are new lines (reports)
-        if current_line_count > last_line_count:
-            new_reports = lines[last_line_count:]
+        if current_line_count > report_line_count:
+            new_reports = lines[report_line_count:]
             for line in new_reports:
                 values = line.strip().split('%')
                 details_str = f'`Reporter:` {remove_color_code(values[0])}\n`Reporter IP:` {values[1]}\n`Reported Player:`{remove_color_code(values[2])}\n`Reported Player IP:` {values[3]}\n`Reason:` {values[4]}\n'
@@ -108,7 +108,7 @@ async def check_report_file(guild_id, channel_id):
                 else:
                     print(f'Guild not found: {guild_id}')
 
-            last_line_count = current_line_count
+            report_line_count = current_line_count
             # Save the last processed line count to the file
             save_last_line_count(current_line_count)
     except Exception as e:
