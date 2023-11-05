@@ -64,15 +64,18 @@ async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
 @bot.command()
-async def status(ctx, server_type):
+async def status(ctx, server):
     try:
-        valid_server_types = server_configs.keys()
+        with open('server_config.json', 'r') as server_configs_file:
+            server_configs = json.load(server_configs_file)
 
-        if server_type not in valid_server_types:
-            await ctx.send(f"Invalid server type. Available types: {', '.join(valid_server_types)}")
+        saved_servers = server_configs.keys()
+
+        if server not in saved_servers:
+            await ctx.send(f"Invalid server type. Available types: {', '.join(saved_servers)}")
             return
 
-        server_info = server_configs[server_type]
+        server_info = server_configs[server]
         ip = server_info["ip"]
         port = server_info["port"]
 
