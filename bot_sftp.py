@@ -467,4 +467,5 @@ async def servers(ctx):
     except Exception as e:
         await ctx.reply(f"An error occurred while trying to get the list")
         print(f"Error: {e}")
+
 bot.run('your_token')
