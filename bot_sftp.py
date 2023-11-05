@@ -1,5 +1,7 @@
 # Bot made by CoYoTe' Clan*
 
+import json
+import re
 import discord
 from discord.ext import commands, tasks
 import asyncio
@@ -420,5 +422,18 @@ async def clear_reports(ctx):
     finally:
         # Close the SSH client
         client.close()
+
+@bot.command(aliases=['newserver'], description="Add a new serve.r")
+async def addserver(ctx, name, ip, port):
+    try:
+        with open('server_config.json', 'r') as server_configs_file:
+            server_configs = json.load(server_configs_file)
+    except FileNotFoundError:
+        server_configs = {}
+    server_configs[name] = {'ip': ip, 'port': port}
+
+    with open('server_config.json', 'w') as server_configs_file:
+        json.dump(server_configs, server_configs_file, indent=4)
+    await ctx.reply(f"Server '{name}' added successfully!")
 
 bot.run('your_token')
