@@ -454,7 +454,7 @@ async def removeserver(ctx, name):
         print(f"Error removing server: {e}")
 
 @bot.command(aliases=['listservers', 'savedservers'], description="List saved servers.")
-@commands.has_permissions(manage_guild=True)
+@commands.has_permissions(send_messages=True)
 async def servers(ctx):
     try:
         with open(config_file_path, 'r') as server_configs_file:
