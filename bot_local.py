@@ -240,7 +240,7 @@ async def banlist(ctx):
 @commands.has_permissions(manage_guild=True)
 async def ban_details(ctx, player_name: str):
     try:
-        with open('miscmod_bans.dat', 'r') as ban_file:
+        with open(ban_file_path, 'r') as ban_file:
             lines = ban_file.readlines()
             matches = []
             for line in lines:
