@@ -395,4 +395,5 @@ async def addserver(ctx, name, ip, port):
 
     with open('server_config.json', 'w') as server_configs_file:
         json.dump(server_configs, server_configs_file, indent=4)
+    await ctx.reply(f"Server '{name}' added successfully!")
 bot.run('your token')
