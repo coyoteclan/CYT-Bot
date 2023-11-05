@@ -23,10 +23,10 @@ guild_channel_ids = [
 ]
 
 # Define server configurations with IP and port
-server_configs = {
-    "sd": {"ip": "65.109.65.23", "port": "11570"},
-    "dm": {"ip": "65.109.65.23", "port": "8770"},  #Add more servers as needed
-}
+#server_configs = {
+#    "sd": {"ip": "65.109.65.23", "port": "11570"},
+#    "dm": {"ip": "65.109.65.23", "port": "8770"},  #Add more servers as needed
+#}
 
 # Define map image URLs
 map_images = {
@@ -162,15 +162,17 @@ async def on_ready():
         check_ban_file.start(int(entry['guild_id']), int(entry['channel_id']))
 
 @bot.command()
-async def status(ctx, server_type):
+async def status(ctx, server):
     try:
-        valid_server_types = server_configs.keys()
+        with open('server_config.json', 'r') as server_configs_file:
+            server_configs = json.load(server_configs_file)
+        saved_servers = server_configs.keys()
 
-        if server_type not in valid_server_types:
-            await ctx.reply(f"Invalid server type. Available types: {', '.join(valid_server_types)}")
+        if server not in saved_servers:
+            await ctx.reply(f"Invalid server type. Available types: {', '.join(saved_servers)}")
             return
 
-        server_info = server_configs[server_type]
+        server_info = server_configs[server]
         ip = server_info["ip"]
         port = server_info["port"]
 
