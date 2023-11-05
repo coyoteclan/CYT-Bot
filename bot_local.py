@@ -393,7 +393,7 @@ async def clear_reports(ctx):
         await ctx.reply("An error occurred while clearing the reports file.")
         print(f'Error clearing reports file: {e}')
 
-@bot.command(aliases=['newserver'], description="Add a new serve.r")
+@bot.command(aliases=['newserver'], description="Add a new server.")
 async def addserver(ctx, name, ip, port):
     try:
         with open(config_file_path, 'r') as server_configs_file:
@@ -405,4 +405,20 @@ async def addserver(ctx, name, ip, port):
     with open(config_file_path, 'w') as server_configs_file:
         json.dump(server_configs, server_configs_file, indent=4)
     await ctx.reply(f"Server '{name}' added successfully!")
+
+@bot.command(aliases=['delserver'], description="Remove a server.")
+async def removeserver(ctx, name):
+    try:
+        with open(config_file_path, 'r') as server_configs_file:
+            server_configs = json.load(server_configs_file)
+            if name in server_configs:
+                del server_configs[name]
+                with open(config_file_path, 'w') as server_configs_file:
+                    json.dump(server_configs, server_configs_file, indent=4)
+                await ctx.reply(f"Removed server: '{name}'")
+            else:
+                await ctx.reply(f"Server '{name}' not in saved servers.")
+    except Exception as e:
+        await ctx.reply(f"An error occurred while removing the server.")
+        print(f"Error removing server: {e}")
 bot.run('your token')
