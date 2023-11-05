@@ -423,4 +423,5 @@ async def removeserver(ctx, name):
     except Exception as e:
         await ctx.reply(f"An error occurred while removing the server.")
         print(f"Error removing server: {e}")
+
 bot.run('your token')
