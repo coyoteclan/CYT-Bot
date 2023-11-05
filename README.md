@@ -8,12 +8,15 @@ Our tool for some cod server related tasks
 - Get Server status
 - Ban a player from discord
 - Unban a player from discord
-- Added the function to remove color tags from player name
+- Function to remove color tags from player name
 - Bot now watches the reports file for new reports (Local version)
-- Added Banlog (Local Version)
+- Banlog (Local Version)
+- Ability to add servers through command
+- Remove servers using commands
 
 ## Changes
 - Organized the code
+- The "status" command now reads servers from saved servers
 
 ## Requirements
 - Python 3.8.10 or later would be good but python 3.7 also works
