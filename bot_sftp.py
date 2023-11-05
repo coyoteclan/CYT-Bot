@@ -26,17 +26,6 @@ current_directory = os.path.dirname(os.path.realpath(__file__))
 
 config_file_path = os.path.join(current_directory, config_file)
 
-# Define server configurations with IP and port
-#server_configs = {
-#   "sd": {"ip": "65.109.65.23", "port": "11570"},
-#    "dm": {"ip": "65.109.65.23", "port": "8770"},  # Example: Add more servers as needed
-#    "tdm": {"ip": "65.109.65.23", "port": "11043"},
-#    "ftag": {"ip": "65.109.65.23", "port": "7914"},
-#    "zom": {"ip": "65.109.65.23", "port": "5567"},
-#	"rocks": {"ip": "78.46.65.243", "port": "6420"},
-#
-#}
-
 # Define map image URLs
 map_images = {
     "zh_king": "https://raw.githubusercontent.com/Kazam3766/mapimages/main/zh_king.png",
