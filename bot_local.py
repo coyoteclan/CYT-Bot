@@ -22,11 +22,11 @@ guild_channel_ids = [
     {'guild_id': '1131571343930951444', 'channel_id': '1150065592456458311'},
 ]
 
-# Define server configurations with IP and port
-#server_configs = {
-#    "sd": {"ip": "65.109.65.23", "port": "11570"},
-#    "dm": {"ip": "65.109.65.23", "port": "8770"},  #Add more servers as needed
-#}
+config_file = 'server_config.json'
+
+current_directory = os.path.dirname(os.path.realpath(__file__))
+
+config_file_path = os.path.join(current_directory, config_file)
 
 # Define map image URLs
 map_images = {
@@ -164,7 +164,7 @@ async def on_ready():
 @bot.command()
 async def status(ctx, server):
     try:
-        with open('server_config.json', 'r') as server_configs_file:
+        with open(config_file_path, 'r') as server_configs_file:
             server_configs = json.load(server_configs_file)
         saved_servers = server_configs.keys()
 
@@ -389,13 +389,13 @@ async def clear_reports(ctx):
 @bot.command(aliases=['newserver'], description="Add a new serve.r")
 async def addserver(ctx, name, ip, port):
     try:
-        with open('server_config.json', 'r') as server_configs_file:
+        with open(config_file_path, 'r') as server_configs_file:
             server_configs = json.load(server_configs_file)
     except FileNotFoundError:
         server_configs = {}
     server_configs[name] = {'ip': ip, 'port': port}
 
-    with open('server_config.json', 'w') as server_configs_file:
+    with open(config_file_path, 'w') as server_configs_file:
         json.dump(server_configs, server_configs_file, indent=4)
     await ctx.reply(f"Server '{name}' added successfully!")
 bot.run('your token')
