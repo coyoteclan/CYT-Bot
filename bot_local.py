@@ -28,6 +28,13 @@ current_directory = os.path.dirname(os.path.realpath(__file__))
 
 config_file_path = os.path.join(current_directory, config_file)
 
+report_line_file = 'last_line_count.dat'
+ban_line_file = 'ban_line_count.dat'
+
+report_count_path = os.path.join(current_directory, report_line_file)
+ban_count_path = os.path.join(current_directory, ban_line_file)
+
+
 # Define map image URLs
 map_images = {
     "zh_king": "https://raw.githubusercontent.com/Kazam3766/mapimages/main/zh_king.png",
@@ -51,30 +58,30 @@ unknown_map = "https://cod.pm/mp_maps/stock/unknown.png"
 
 def read_last_line_count():
     try:
-        with open('last_line_count.dat', 'r') as file:
+        with open(report_count_path, 'r') as file:
             return int(file.read().strip())
     except FileNotFoundError:
         # Create the file if it doesn't exist and initialize with 0
-        with open('last_line_count.dat', 'w') as file:
+        with open(report_count_path, 'w') as file:
             file.write('0')
         return 0  # Return 0 since the file was just created
 def save_last_line_count(count):
-    with open('last_line_count.dat', 'w') as file:
+    with open(report_count_path, 'w') as file:
         file.write(str(count))
 
 report_line_count = read_last_line_count()
 
 def read_ban_line_count():
     try:
-        with open('ban_line_count.dat', 'r') as file:
+        with open(ban_count_path, 'r') as file:
             return int(file.read().strip())
     except FileNotFoundError:
         # Create the file if it doesn't exist and initialize with 0
-        with open('ban_line_count.dat', 'w') as file:
+        with open(ban_count_path, 'w') as file:
             file.write('0')
         return 0  # Return 0 since the file was just created
 def save_ban_line_count(count):
-    with open('ban_line_count.dat', 'w') as file:
+    with open(ban_count_path, 'w') as file:
         file.write(str(count))
 
 ban_line_count = read_ban_line_count()
