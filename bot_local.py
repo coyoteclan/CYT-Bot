@@ -394,6 +394,7 @@ async def clear_reports(ctx):
         print(f'Error clearing reports file: {e}')
 
 @bot.command(aliases=['newserver'], description="Add a new server.")
+@commands.has_permissions(manage_guild=True)
 async def addserver(ctx, name, ip, port):
     try:
         with open(config_file_path, 'r') as server_configs_file:
@@ -407,6 +408,7 @@ async def addserver(ctx, name, ip, port):
     await ctx.reply(f"Server '{name}' added successfully!")
 
 @bot.command(aliases=['delserver'], description="Remove a server.")
+@commands.has_permissions(manage_guild=True)
 async def removeserver(ctx, name):
     try:
         with open(config_file_path, 'r') as server_configs_file:
