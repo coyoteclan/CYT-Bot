@@ -19,16 +19,23 @@ sftp_port = 0
 sftp_username = ''
 sftp_password = ''
 
-# Define server configurations with IP and port
-server_configs = {
-    "sd": {"ip": "65.109.65.23", "port": "11570"},
-    "dm": {"ip": "65.109.65.23", "port": "8770"},  # Example: Add more servers as needed
-    "tdm": {"ip": "65.109.65.23", "port": "11043"},
-    "ftag": {"ip": "65.109.65.23", "port": "7914"},
-    "zom": {"ip": "65.109.65.23", "port": "5567"},
-	"rocks": {"ip": "78.46.65.243", "port": "6420"},
+# config file name
+config_file = 'server_config.json'
 
-}
+current_directory = os.path.dirname(os.path.realpath(__file__))
+
+config_file_path = os.path.join(current_directory, config_file)
+
+# Define server configurations with IP and port
+#server_configs = {
+#   "sd": {"ip": "65.109.65.23", "port": "11570"},
+#    "dm": {"ip": "65.109.65.23", "port": "8770"},  # Example: Add more servers as needed
+#    "tdm": {"ip": "65.109.65.23", "port": "11043"},
+#    "ftag": {"ip": "65.109.65.23", "port": "7914"},
+#    "zom": {"ip": "65.109.65.23", "port": "5567"},
+#	"rocks": {"ip": "78.46.65.243", "port": "6420"},
+#
+#}
 
 # Define map image URLs
 map_images = {
@@ -66,7 +73,7 @@ async def on_ready():
 @bot.command()
 async def status(ctx, server):
     try:
-        with open('server_config.json', 'r') as server_configs_file:
+        with open(config_file_path, 'r') as server_configs_file:
             server_configs = json.load(server_configs_file)
 
         saved_servers = server_configs.keys()
@@ -429,13 +436,13 @@ async def clear_reports(ctx):
 @bot.command(aliases=['newserver'], description="Add a new serve.r")
 async def addserver(ctx, name, ip, port):
     try:
-        with open('server_config.json', 'r') as server_configs_file:
+        with open(config_file_path, 'r') as server_configs_file:
             server_configs = json.load(server_configs_file)
     except FileNotFoundError:
         server_configs = {}
     server_configs[name] = {'ip': ip, 'port': port}
 
-    with open('server_config.json', 'w') as server_configs_file:
+    with open(config_file_path, 'w') as server_configs_file:
         json.dump(server_configs, server_configs_file, indent=4)
     await ctx.reply(f"Server '{name}' added successfully!")
 
