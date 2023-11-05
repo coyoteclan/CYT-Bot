@@ -453,4 +453,18 @@ async def removeserver(ctx, name):
         await ctx.reply(f"An error occurred while removing the server.")
         print(f"Error removing server: {e}")
 
+@bot.command(aliases=['listservers', 'savedservers'], description="List saved servers.")
+@commands.has_permissions(manage_guild=True)
+async def servers(ctx):
+    try:
+        with open(config_file_path, 'r') as server_configs_file:
+            server_config = json.load(server_configs_file)
+        if server_config:
+            list = "\n".join(server_config.keys())
+            await ctx.reply(f"__**Saved Servers**__:\n {list}")
+        else:
+            await ctx.reply(f"No servers saved... yet.")
+    except Exception as e:
+        await ctx.reply(f"An error occurred while trying to get the list")
+        print(f"Error: {e}")
 bot.run('your_token')
