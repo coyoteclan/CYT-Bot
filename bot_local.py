@@ -1,5 +1,6 @@
 # Bot made by CoYoTe' Clan*
 
+import json
 import discord
 from discord.ext import commands, tasks
 import asyncio
@@ -383,4 +384,15 @@ async def clear_reports(ctx):
         await ctx.reply("An error occurred while clearing the reports file.")
         print(f'Error clearing reports file: {e}')
 
+@bot.command(aliases=['newserver'], description="Add a new serve.r")
+async def addserver(ctx, name, ip, port):
+    try:
+        with open('server_config.json', 'r') as server_configs_file:
+            server_configs = json.load(server_configs_file)
+    except FileNotFoundError:
+        server_configs = {}
+    server_configs[name] = {'ip': ip, 'port': port}
+
+    with open('server_config.json', 'w') as server_configs_file:
+        json.dump(server_configs, server_configs_file, indent=4)
 bot.run('your token')
