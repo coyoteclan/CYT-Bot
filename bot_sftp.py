@@ -468,4 +468,32 @@ async def servers(ctx):
         await ctx.reply(f"An error occurred while trying to get the list")
         print(f"Error: {e}")
 
+@bot.command(aliases=['ms'], description="Get masterlist...")
+@commands.has_permissions(send_messages=True)
+async def masterlist(ctx, game: str, version: str):
+    try:
+        ms_url = f"https://api.cod.pm/masterlist/{game}/{version}"
+        response = requests.get(ms_url)
+        data = response.json()
+
+        if "servers" not in data:
+            await ctx.reply("Failed to retrieve masterlist.")
+            return
+        
+        servers = data["servers"]
+        embed = discord.Embed(title=f"Masterlist - {game} {version}", color=0x00ff00)
+
+        for server in servers:
+            server_name = server["sv_hostname"].replace('/u0001', '')
+            if server["clients"] > 0:
+                embed.add_field(
+                    name=remove_color_code(server_name),
+                    value=f"Map: {server['mapname']}\nPlayers: {server['clients']}/{server['sv_maxclients']}",
+                    inline=False
+                )
+        await ctx.reply(embed=embed)
+    except Exception as e:
+        await ctx.reply(f"An error occurred while fetching masterlist.")
+        print(f"Error: {e}")
+
 bot.run('your_token')
