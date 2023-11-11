@@ -7,6 +7,7 @@ import asyncio
 import os
 import requests
 import re
+from tabulate import tabulate
 
 # Replace with your admin role. In this way: <@&"role id"> *without the quotes
 adminrole = '<@&1131572747076632687>'
@@ -212,9 +213,12 @@ async def status(ctx, server):
 
             if player_info:
                 # Remove '^' and numbers 0-7 from player names
-                cleaned_player_names = [remove_color_code(player['name']) for player in player_info]
-                player_list = "\n".join([f"**{cleaned_name}** - Score: {player['score']}, Ping: {player['ping']}" for cleaned_name, player in zip(cleaned_player_names, player_info)])
-                embed.add_field(name="Players Online", value=player_list, inline=False)
+                #cleaned_player_names = [remove_color_code(player['name']) for player in player_info]
+                #player_list = "\n".join([f"**{cleaned_name}** - Score: {player['score']}, Ping: {player['ping']}" for cleaned_name, player in zip(cleaned_player_names, player_info)])
+                headers = ["Player", "Score", "Ping"]
+                rows = [[remove_color_code(player['name']), player['score'], player['ping']] for player in player_info]
+                table = tabulate(rows, headers, tablefmt="grid")
+                embed.add_field(name="Players Online", value=f"```{table}```", inline=False)
 
             await ctx.reply(embed=embed)
         else:
