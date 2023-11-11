@@ -212,9 +212,6 @@ async def status(ctx, server):
             embed.set_thumbnail(url=map_image_url)
 
             if player_info:
-                # Remove '^' and numbers 0-7 from player names
-                #cleaned_player_names = [remove_color_code(player['name']) for player in player_info]
-                #player_list = "\n".join([f"**{cleaned_name}** - Score: {player['score']}, Ping: {player['ping']}" for cleaned_name, player in zip(cleaned_player_names, player_info)])
                 headers = ["Player", "Score", "Ping"]
                 rows = [[remove_color_code(player['name']), player['score'], player['ping']] for player in player_info]
                 table = tabulate(rows, headers, tablefmt="grid")
