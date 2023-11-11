@@ -459,7 +459,7 @@ async def masterlist(ctx, game: str, version: str):
             server_name = server["sv_hostname"].replace('/u0001', '')
             if server["clients"] > 0:
                 embed.add_field(
-                    name=server_name,
+                    name=remove_color_code(server_name),
                     value=f"Map: {server['mapname']}\nPlayers: {server['clients']}/{server['sv_maxclients']}",
                     inline=False
                 )
