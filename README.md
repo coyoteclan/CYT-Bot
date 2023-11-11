@@ -13,10 +13,12 @@ Our tool for some cod server related tasks
 - Banlog (Local Version)
 - Ability to add servers through command
 - Remove servers using commands
+- Can retrieve cod, coduo, cod2 and cod4 masterlist from [cod.pm api](https://api.cod.pm)
 
 ## Changes
 - Organized the code
 - The "status" command now reads servers from saved servers
+- Improved "status" embed
 
 ## Requirements
 - Python 3.8.10 or later would be good but python 3.7 also works
@@ -34,5 +36,8 @@ Our tool for some cod server related tasks
 Run bot.py with C:/Windows/py.exe
 - For Linux:
 Type `cd <bot directory>` and then `python3 bot.py` in terminal
+
+## Credits
+- [Cato](https://discord.com/users/1076625583703871589) for cod.pm api
 
 For further help, feel free to contact on <a href="https://discord.com/users/932181218936651827">Discord</a>
