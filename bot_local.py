@@ -460,7 +460,7 @@ async def masterlist(ctx, game: str, version: str):
             if server["clients"] > 0:
                 embed.add_field(
                     name=server_name,
-                    value=f"Map: {server['mapname']}\nPlayers: {server['clients']}/{server['maxclients']}",
+                    value=f"Map: {server['mapname']}\nPlayers: {server['clients']}/{server['sv_maxclients']}",
                     inline=False
                 )
         await ctx.reply(embed=embed)
