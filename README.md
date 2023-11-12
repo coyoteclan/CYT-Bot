@@ -37,7 +37,7 @@ Run bot.py with C:/Windows/py.exe
 - For Linux:
 Type `cd <bot directory>` and then `python3 bot.py` in terminal
 
-## Credits
-- [Cato](https://discord.com/users/1076625583703871589) for cod.pm api
+## Donate :)
+- [Donate](https://cod.pm/faq#f42e) to cod.pm
 
 For further help, feel free to contact on <a href="https://discord.com/users/932181218936651827">Discord</a>
