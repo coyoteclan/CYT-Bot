@@ -140,7 +140,7 @@ async def check_ban_file(guild_id, channel_id):
             new_bans = lines[ban_line_count:]
             for line in new_bans:
                 values = line.strip().split('%')
-                details_str = f'`Admin:` {remove_color_code(values[1])}\n`Banneed Player:`{remove_color_code(values[2])}\n`Banneded Player IP:` {values[0]}\n`Reason:` {values[5]}\n'
+                details_str = f'`Admin:` {remove_color_code(values[1])}\n`Banneed Player:`{remove_color_code(values[2])}\n`Banned Player IP:` {values[0]}\n`Reason:` {values[5]}\n'
                 guild = bot.get_guild(int(guild_id))
                 if guild:
                     channel = guild.get_channel(int(channel_id))
