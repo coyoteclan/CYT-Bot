@@ -322,7 +322,7 @@ async def add_ban(ctx, ip, name, reason, ban_time):
             existing_content = remote_file.read()
 
         # Append the new line to the existing content
-        ban_line = f"1.1.1.1%{admin}%{name}%{ban_time_seconds}%167548%{reason}\n"
+        ban_line = f"{ip}%{admin}%{name}%{ban_time_seconds}%167548%{reason}\n"
         updated_content = existing_content + ban_line.encode('utf-8')
 
         # Write the updated content back to the remote file
