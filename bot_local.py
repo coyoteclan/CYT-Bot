@@ -271,7 +271,7 @@ def convert_seconds_to_hours(seconds):
 @bot.command(aliases=['rlist'], description="Show the reports")
 async def reports(ctx):
     try:
-        with open('miscmod_reports.dat', 'r') as report_file:
+        with open('report_file_path', 'r') as report_file:
             lines = report_file.readlines()
             reports = [line.strip().split('%') for line in lines]
             reported_players = [remove_color_code(report[2]) for report in reports]
@@ -336,7 +336,7 @@ async def add_ban(ctx, ip, name, reason, ban_time):
             existing_content = file.read()
 
         # Append the new line to the existing content
-        ban_line = f"1.1.1.1%{admin}%{name}%{ban_time_seconds}%167548%{reason}\n"
+        ban_line = f"{ip}%{admin}%{name}%{ban_time_seconds}%167548%{reason}\n"
         updated_content = existing_content + ban_line.encode('utf-8')
 
         # Write the updated content back to the remote file
