@@ -9,9 +9,9 @@ import json
 with open('config.json') as f:
     config = json.load(f)
 
-SERVER_IP = config['SERVER_IP']
-SERVER_PORT = config['SERVER_PORT']
-SERVER_RCONPASS = config['SERVER_RCONPASS']
+#SERVER_IP = config['SERVER_IP']
+#SERVER_PORT = config['SERVER_PORT']
+#SERVER_RCONPASS = config['SERVER_RCONPASS']
 SERVER_GAMELOG_PATH = config['SERVER_GAMELOG_PATH']
 CHANNEL_ID = config['CHANNEL_ID']
 BOT_TOKEN = config['BOT_TOKEN']
