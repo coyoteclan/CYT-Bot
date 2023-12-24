@@ -79,8 +79,8 @@ def process_chat_line(line):
 
 @client.event
 async def on_ready():
-    print("CoD 1.1 DiscordSRV By Fionn")
-    print("Contact: fionnlee#5322")
+    print("Fionn's CoD 1.1 DiscordSRV Python Alt")
+    print("by CoYoTe' Clan*")
 
     # Start monitoring gamelog file for changes
     observer = Observer()
