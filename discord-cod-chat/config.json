@@ -1,0 +1,8 @@
+{
+    "SERVER_IP": "1.1.1.1",
+    "SERVER_PORT": 28960,
+    "SERVER_RCONPASS": "rconpass",
+    "SERVER_GAMELOG_PATH": "/path/to/game_mp.log",
+    "CHANNEL_ID" : "11111111111222",
+    "BOT_TOKEN" : "wdwdwdwwaad.wdddwdwd.wdddddddddddddddddd"
+}
