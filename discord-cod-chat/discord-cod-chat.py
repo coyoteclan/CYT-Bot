@@ -1,5 +1,5 @@
 import discord
-from rcon import RCON
+#from rcon import RCON
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import asyncio
@@ -21,7 +21,7 @@ ban_words = {"@everyone": "", "@here": ""}
 
 # Initialize Discord client and RCON connection
 client = discord.Client()
-rcon_client = RCON(server=SERVER_IP, password=SERVER_RCONPASS, port=SERVER_PORT)
+#rcon_client = RCON(server=SERVER_IP, password=SERVER_RCONPASS, port=SERVER_PORT)
 
 # Players list for tracking joins and leaves
 players = []
