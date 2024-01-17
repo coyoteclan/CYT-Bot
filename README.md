@@ -6,6 +6,7 @@ Our tool for some cod server related tasks
 - Reports list and details for each report
 - Clear Reports
 - Get Server status
+- Pin a status message in channel
 - Ban a player from discord
 - Unban a player from discord
 - Function to remove color tags from player name
