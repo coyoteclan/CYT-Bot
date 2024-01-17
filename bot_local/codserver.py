@@ -9,6 +9,11 @@ from tabulate import tabulate
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 servers_config_file = os.path.join(currentdir, "server_config.json")
+settings_file = os.path.join(currentdir, "config.json")
+with open(settings_file, 'r') as file:
+    settings = json.load(file)
+my_color = settings.get("embedcolor")
+my_color = int(my_color[1:], 16)
 
 class CoDServer(commands.Cog):
 
@@ -75,7 +80,7 @@ class CoDServer(commands.Cog):
                     location = get_ip.get("country_name", "N/A")
                 else:
                     location = "N/A"
-                embed = discord.Embed(title="Server Info", color=0x00ff00)
+                embed = discord.Embed(title="Server Info", color=my_color)
                 embed.add_field(name="Server Name", value=f"[{hostname}]({server_url})", inline=True)
                 embed.add_field(name="Gametype", value=f"{gametype}", inline=True)
                 embed.add_field(name="Location", value=f"{location}", inline=True)
@@ -208,7 +213,7 @@ class CoDServer(commands.Cog):
                     location = get_ip.get("country_name", "N/A")
                 else:
                     location = "N/A"
-                embed = discord.Embed(title="Server Info", color=0x00ff00)
+                embed = discord.Embed(title="Server Info", color=my_color)
                 embed.add_field(name="Server Name", value=f"[{hostname}]({server_url})", inline=True)
                 embed.add_field(name="Gametype", value=f"{gametype}", inline=True)
                 embed.add_field(name="Location", value=f"{location}", inline=True)
