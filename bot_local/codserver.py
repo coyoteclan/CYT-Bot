@@ -4,17 +4,21 @@ from discord.ui import Select, View
 import requests
 import json
 import re
+import os
 from tabulate import tabulate
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+servers_config_file = os.path.join(currentdir, "server_config.json")
 
 class CoDServer(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(description="Get status of a server.")
     async def status(self, ctx, server):
         try:
-            with open("server_config.json", 'r') as server_cfg:
+            with open(servers_config_file, 'r') as server_cfg:
                 server_config = json.load(server_cfg)
             saved_servers = server_config.keys()
             if server not in saved_servers:
@@ -69,6 +73,8 @@ class CoDServer(commands.Cog):
                     map_image = f"https://cod.pm/mp_maps/stock/unknown.png"
                 if get_ip:
                     location = get_ip.get("country_name", "N/A")
+                else:
+                    location = "N/A"
                 embed = discord.Embed(title="Server Info", color=0x00ff00)
                 embed.add_field(name="Server Name", value=f"[{hostname}]({server_url})", inline=True)
                 embed.add_field(name="Gametype", value=f"{gametype}", inline=True)
@@ -95,10 +101,10 @@ class CoDServer(commands.Cog):
         except Exception as e:
             print(f"Error: {e}")
             
-    @commands.command()
+    @commands.command(description="Get a list of saved servers.")
     async def servers(self, ctx):
         try:
-            with open("server_config.json", 'r') as server_cfg:
+            with open(servers_config_file, 'r') as server_cfg:
                 server_config = json.load(server_cfg)
             if server_config:
                 list = "\n".join(server_config.keys())
@@ -111,23 +117,23 @@ class CoDServer(commands.Cog):
     @commands.command(description="Add a new server.")
     async def addserver(self, ctx, name, ip, port):
         try:
-            with open("server_config.json", 'r') as server_cfg:
+            with open(servers_config_file, 'r') as server_cfg:
                 server_config = json.load(server_cfg)
         except FileNotFoundError:
             server_config = {}
         server_config[name] = {'ip': ip, 'port': port}
-        with open("server_config.json", 'w') as server_cfg:
+        with open(servers_config_file, 'w') as server_cfg:
             json.dump(server_config, server_cfg, indent=4)
         await ctx.reply(f"Server {name} added successfully!")
     
     @commands.command()
     async def removeserver(self, ctx, name):
         try:
-            with open("server_config.json", 'r') as server_cfg:
+            with open(servers_config_file, 'r') as server_cfg:
                 server_config = json.load(server_cfg)
             if name in server_config:
                 del server_config[name]
-                with open("server_config.json", 'w') as server_cfg:
+                with open(servers_config_file, 'w') as server_cfg:
                     json.dump(server_config, server_cfg, indent=4)
                 await ctx.reply(f"Removed Server: {name}")
             else:
@@ -142,7 +148,7 @@ class CoDServer(commands.Cog):
             if message.author == ctx.guild.me and "Server Info" in message.embeds[0].title:
                 await ctx.reply("There is already a pinned status message in this channel.")
                 return
-        with open("server_config.json", 'r') as server_cfg:
+        with open(servers_config_file, 'r') as server_cfg:
             server_config = json.load(server_cfg)
         if server_config:
             options = [discord.SelectOption(label=entry, value=entry) for entry in server_config.keys()]
@@ -150,7 +156,7 @@ class CoDServer(commands.Cog):
         async def my_call(interaction):
             selected_server = interaction.data["values"][0]
             print(f"Choose: {selected_server}")
-            with open("server_config.json", 'r') as server_cfg:
+            with open(servers_config_file, 'r') as server_cfg:
                 server_config = json.load(server_cfg)
             server_info = server_config[selected_server]
             srv_ip = server_info["ip"]
@@ -170,7 +176,6 @@ class CoDServer(commands.Cog):
                 hostname = re.sub(r'\s+|\u0001', ' ', hostname)
                 hostname = remove_color_code(hostname)
                 hostname = re.sub(r'\s+|\u0001', ' ', hostname)
-                print(f"Status: {hostname}")
                 map_name = server_info.get("mapname", "N/A")
                 gametype = server_info.get("g_gametype", "N/A")
                 maxclients = server_info.get("sv_maxclients")
@@ -201,6 +206,8 @@ class CoDServer(commands.Cog):
                     map_image = f"https://cod.pm/mp_maps/stock/unknown.png"
                 if get_ip:
                     location = get_ip.get("country_name", "N/A")
+                else:
+                    location = "N/A"
                 embed = discord.Embed(title="Server Info", color=0x00ff00)
                 embed.add_field(name="Server Name", value=f"[{hostname}]({server_url})", inline=True)
                 embed.add_field(name="Gametype", value=f"{gametype}", inline=True)
@@ -217,7 +224,10 @@ class CoDServer(commands.Cog):
                 else:
                     players = f"0/{maxclients}"
                 embed.add_field(name="Players Online", value=players, inline=False)
+                print(f"Status: {hostname}")
                 await interaction.response.edit_message(embed=embed, view=view)
+            else:
+                return
         select.callback = my_call
         view = View()
         view.add_item(select)
