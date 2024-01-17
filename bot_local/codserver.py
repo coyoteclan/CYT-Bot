@@ -262,9 +262,6 @@ class CoDServer(commands.Cog):
 def remove_color_code(name):
 	name = re.sub(r'\^\^([0-7]{2})|\^([0-7]{1})|\^', '', name)
 	return name
-def decorate(string: str):
-    string = f"__**{string}**__"
-    return string
 
 async def setup(bot):
     await bot.add_cog(CoDServer(bot))
