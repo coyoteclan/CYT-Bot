@@ -22,7 +22,7 @@ Our tool for some cod server related tasks
 - Improved "status" embed
 
 ## Requirements
-- Python 3.8.10 or later would be good but python 3.7 also works
+- Python 3.8.10 or later would be good, 3.11 recommended
 - ### Modules:
 - discord
 - asyncio
