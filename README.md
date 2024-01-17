@@ -26,6 +26,7 @@ Our tool for some cod server related tasks
 - discord
 - asyncio
 - requests
+- tabulate
 - paramiko (for sftp version)
 ## Usage
 - Use local version if server is on local machine.
