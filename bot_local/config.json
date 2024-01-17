@@ -1,9 +1,9 @@
 {
     "prefix": "+",
-    "token": "MTE5NjA2NDk5NzQzNzA5NTk5Ng.GWTd5K.rUijPeVyRb-sRJ0ilLwQKmHwD_HkRokpVnFgfc",
+    "token": "MTE5NjA2NDk5NzQzNzA5NTk5Ng.GWTd5l.rUijPeVyRb-sRJ0ilLwQKmHwD_HkRokpVnFgfc",
     "adminrole": "1162735371235377193",
-    "ban_file_path": "bans.dat",
-    "report_file_path": "reports.dat",
+    "ban_file_path": "path/to/miscmod_bans.dat",
+    "report_file_path": "path/to/miscmod_reports.dat",
     "guild": "1131571343930957944",
     "channel": "1150065602526990376"
 }
