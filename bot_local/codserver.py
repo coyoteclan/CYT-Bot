@@ -161,7 +161,6 @@ class CoDServer(commands.Cog):
         select = Select(placeholder="Choose a server", options=options)
         async def my_call(interaction):
             selected_server = interaction.data["values"][0]
-            print(f"Choose: {selected_server}")
             with open(servers_config_file, 'r') as server_cfg:
                 server_config = json.load(server_cfg)
             server_info = server_config[selected_server]
