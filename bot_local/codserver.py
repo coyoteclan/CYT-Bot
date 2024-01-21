@@ -231,12 +231,15 @@ class CoDServer(commands.Cog):
                 embed.add_field(name="Players Online", value=players, inline=False)
                 print(f"Status: {hostname}")
                 await interaction.response.edit_message(embed=embed, view=view)
-                @tasks.loop(minutes=5.0)
+                @tasks.loop(minutes=10.0)
                 async def refresh_status():
                     pinned_messages = await ctx.channel.pins()
                     for message in pinned_messages:
                         if message.author == ctx.guild.me and "Server Info" in message.embeds[0].title:
-                            await message.edit(view=view)
+                            await message.unpin()
+                            await message.delete()
+                            status = await ctx.send(embed=embed, view=view)
+                            await status.pin()
                 if not refresh_status.is_running():
                     refresh_status.start()
             else:
