@@ -3,15 +3,14 @@ from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
 def process_message(message):
-    # Replace this with your custom function to process the message
     print("Processing message:", message)
 
 class LogFileHandler(PatternMatchingEventHandler):
     def on_modified(self, event):
         with open(event.src_path, "r") as log_file:
             for line in log_file.readlines():
-                if line.startswith("say: ") or line.startswith("something: "):
-                    message = line.split(":", 1)[1].strip()
+                if line.startswith("say: "):
+                    message = line.split(":", 1)
                     process_message(message)
 
 if __name__ == "__main__":
