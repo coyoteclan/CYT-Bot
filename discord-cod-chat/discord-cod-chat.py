@@ -15,7 +15,7 @@ class LogFileHandler(PatternMatchingEventHandler):
                     process_message(message)
 
 if __name__ == "__main__":
-    log_file_path = "path/to/your/game.log"  # Replace with your actual log file path
+    log_file_path = "path/to/your/game.log"
     patterns = ["*.log"]
     
     event_handler = LogFileHandler(patterns=patterns)
