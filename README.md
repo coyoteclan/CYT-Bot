@@ -1,3 +1,6 @@
+### Note:
+    **The bot is under-development. It will be fully reworked with tons of improvements and fixes. The ``bot_local`` and ``bot_sftp`` folders are not usable.**
+
 # CYT-COD-Server-Utility
 Our tool for some cod server related tasks
 
