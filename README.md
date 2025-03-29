@@ -1,47 +1,32 @@
-### Note:
-    The bot is under-development.
-    It will be fully reworked with tons of improvements and fixes.
-    The `bot_local` and `bot_sftp` folders are not usable.
-
 # CYT-COD-Server-Utility
 Our tool for some cod server related tasks
+> **Note:**
+>
+> The bot is being re-written. Some features have been dropped and some are not added yet.
 
 ## Features
-- Bans list and details for each ban
-- Reports list and details for each report
-- Clear Reports
 - Get Server status
-- Pin a status message in channel
-- Ban a player from discord
-- Unban a player from discord
 - Function to remove color tags from player name
-- Bot now watches the reports file for new reports (Local version)
-- Banlog (Local Version)
 - Ability to add servers through command
-- Remove servers using commands
+- Remove servers using command
 - Can retrieve cod, coduo, cod2 and cod4 masterlist from [cod.pm api](https://api.cod.pm)
 
-## Changes
-- Organized the code
-- The "status" command now reads servers from saved servers
-- Improved "status" embed
-
 ## Requirements
-- Python 3.8.10 or later would be good, 3.11 recommended
+- Python 3.11.2 or later recommended
 - ### Modules:
 - discord
 - asyncio
 - requests
 - tabulate
-- paramiko (for sftp version)
+- cython
+- ~~paramiko (for sftp version)~~
 ## Usage
-- Use local version if server is on local machine.
-- Use sftp verion if you use sftp to access server files
-- Fill up the required fields
-- Add your bot's token in the last line
-- For Windows:
-Run bot.py with C:/Windows/py.exe
-- For Linux:
-Type `cd <bot directory>` and then `python3 bot.py` in terminal
+- Set bot token in ``config.json``
+- Create a folder named ``servers`` with ``bot.py``
+For Windows:
+- Run ``bot.py`` with C:/Windows/py.exe
+For Linux:
+- Delete ``shared.py`` file
+- Type ``python3 bot.py`` in terminal
 
 For further help, feel free to contact on <a href="https://discord.com/users/932181218936651827">Discord</a>
